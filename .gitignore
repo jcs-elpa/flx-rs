@@ -1,0 +1,10 @@
+# ignore these directories.
+/.git
+/recipes
+
+# Elisp
+*.elc
+.cask
+
+# ignore video
+/video
