@@ -7,7 +7,7 @@
 ;; Description: flx in Rust using dynamic module
 ;; Keyword: fuzzy
 ;; Version: 0.1.0
-;; Package-Requires: ((emacs "24.3"))
+;; Package-Requires: ((emacs "25.1"))
 ;; URL: https://github.com/jcs-elpa/flx-rs
 
 ;; This file is NOT part of GNU Emacs.
@@ -66,7 +66,7 @@
   (unless (featurep 'flx-rs-core)
     (let* ((dyn-name (cl-case system-type
                        ((windows-nt ms-dos cygwin) (concat flx-rs--dyn-name ".dll"))
-                       (darwin (concat "lib" flx-rs--dyn-name ".dylib"))
+                       (`darwin (concat "lib" flx-rs--dyn-name ".dylib"))
                        (t (concat "lib" flx-rs--dyn-name ".so"))))
            (dyn-path (concat flx-rs--bin-dir dyn-name)))
       (module-load dyn-path)
