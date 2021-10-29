@@ -9,7 +9,7 @@
 use emacs::{defun, Env, Result, Value, IntoLisp, Vector};
 
 fn flx_rs_score(source: &str, pattern: &str) -> Option<Vec<i32>> {
-    let result: flx_rs::Option<flx_rs::Score> = flx_rs::score(source, pattern);
+    let result: Option<flx_rs::Score> = flx_rs::score(source, pattern);
     if result == None {
         return None;
     }
@@ -28,7 +28,7 @@ fn flx_rs_score(source: &str, pattern: &str) -> Option<Vec<i32>> {
 ///
 /// (fn STR QUERY)
 #[defun]
-fn score(env: &Env, str: String, query: String) -> Result<Vector> {
+fn score<'e>(env: &Env, str: String, query: String) -> Result<Vector<'e>> {
     let _vec: Option<Vec<i32>> = flx_rs_score(&str, &query);
     if _vec == None {
         return None;
