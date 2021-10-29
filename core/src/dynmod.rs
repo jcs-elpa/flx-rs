@@ -8,12 +8,12 @@
  */
 use emacs::{defun, Env, Result, Value, IntoLisp};
 
-fn flx_rs_score(source: &str, pattern: &str) -> Option<f64> {
-    let result = flx_rs::score(source, pattern);
+fn flx_rs_score(source: &str, pattern: &str) -> Option<Vec<i32>> {
+    let result: flx_rs::Score = flx_rs::score(source, pattern);
     if result == None {
         return None;
     }
-    return Some(result.unwrap() as f64)
+    return Some(result.score)
 }
 
 // Output Functions
@@ -26,6 +26,6 @@ fn flx_rs_score(source: &str, pattern: &str) -> Option<f64> {
 ///
 /// (fn STR QUERY)
 #[defun]
-fn score(_env: &Env, str: String, query: String) -> Result<Option<f64>> {
+fn score(_env: &Env, str: String, query: String) -> Result<Vec<i32>> {
     Ok(flx_rs_score(&str, &query))
 }
