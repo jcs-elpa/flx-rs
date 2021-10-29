@@ -14,7 +14,7 @@ fn flx_rs_score(source: &str, pattern: &str) -> Option<Vec<i32>> {
         return None;
     }
     let _result: flx_rs::Score = result.unwrap();
-    let vec: Vec<i32> = _result.indices.clone();
+    let mut vec: Vec<i32> = _result.indices.clone();
     vec.insert(0, _result.score);
     return Some(vec)
 }
