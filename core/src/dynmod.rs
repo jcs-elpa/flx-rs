@@ -41,5 +41,5 @@ fn score(env: &Env, str: String, query: String) -> Result<Option<Vector>> {
         vec.set(index, data);
         index += 1;
     }
-    Ok(vec)
+    Ok(Some(vec))
 }
