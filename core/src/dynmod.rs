@@ -8,14 +8,6 @@
  */
 use emacs::{defun, Env, Result, Value, IntoLisp, Vector};
 
-fn vec_to_vector(env: &Env, vec: Vec<T>) -> Result<Vector> {
-    let vector = env.make_vector(vec.len(), ())?;
-    for (i, v) in vec.into_iter().enumerate() {
-        vector.set(i, v)?;
-    }
-    Ok(vector)
-}
-
 fn flx_rs_score(source: &str, pattern: &str) -> Option<Vec<i32>> {
     let result: flx_rs::Option<flx_rs::Score> = flx_rs::score(source, pattern);
     if result == None {
@@ -37,6 +29,12 @@ fn flx_rs_score(source: &str, pattern: &str) -> Option<Vec<i32>> {
 /// (fn STR QUERY)
 #[defun]
 fn score(env: &Env, str: String, query: String) -> Result<Vector> {
-    let vec: Option<Vec<i32>> = flx_rs_score(&str, &query);
-    vec_to_vector(env, vec)
+    let _vec: Option<Vec<i32>> = flx_rs_score(&str, &query);
+    let vec = env.make_vector(_vec.len(), ())?;
+    let index = 0;
+    for data in _vec {
+        vec.set(index, data);
+        index += 1;
+    }
+    Ok(vec)
 }
