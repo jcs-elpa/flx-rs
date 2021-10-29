@@ -1,5 +1,5 @@
 [package]
-name = "flxy_core"
+name = "flx_rs_core"
 version = "0.1.0"
 authors = ["Jen-Chieh Shen <jcs090218@gmail.com>"]
 edition = "2018"
@@ -12,7 +12,7 @@ crate-type = ["cdylib"]
 
 [dependencies]
 emacs = "0.17"
-flx-rs = "0.1.0"
+flx-rs = "0.1.1"
 
 [profile.release]
 opt-level = 3
