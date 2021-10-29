@@ -36,7 +36,7 @@ fn score(env: &Env, str: String, query: String) -> Result<Option<Vector>> {
     }
     let _inner_vec: Vec<i32> = _vec.unwrap();
     let mut vec = env.make_vector(_inner_vec.len(), ())?;
-    let index = 0;
+    let mut index = 0;
     for data in _inner_vec {
         vec.set(index, data);
         index += 1;
