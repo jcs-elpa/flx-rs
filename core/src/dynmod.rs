@@ -6,10 +6,18 @@
  * $Notice: See LICENSE.txt for modification and distribution information
  *                   Copyright © 2021 by Shen, Jen-Chieh $
  */
-use emacs::{defun, Env, Result, Value, IntoLisp};
+use emacs::{defun, Env, Result, Value, IntoLisp, Vector};
+
+fn vec_to_vector<'e, T: IntoLisp<'e>>(env: &'e Env, vec: Vec<T>) -> Result<Vector<'e>> {
+    let vector = env.make_vector(vec.len(), ())?;
+    for (i, v) in vec.into_iter().enumerate() {
+        vector.set(i, v)?;
+    }
+    Ok(vector)
+}
 
 fn flx_rs_score(source: &str, pattern: &str) -> Option<Vec<i32>> {
-    let result: flx_rs::Score = flx_rs::score(source, pattern);
+    let result: flx_rs::Option<Score> = flx_rs::score(source, pattern);
     if result == None {
         return None;
     }
@@ -28,6 +36,7 @@ fn flx_rs_score(source: &str, pattern: &str) -> Option<Vec<i32>> {
 ///
 /// (fn STR QUERY)
 #[defun]
-fn score(_env: &Env, str: String, query: String) -> Result<Vec<i32>> {
-    Ok(flx_rs_score(&str, &query))
+fn score(_env: &Env, str: String, query: String) -> Result<Vector<'e>> {
+    let vec: Option<Vec<i32>> = flx_rs_score(str, query);
+    vec_to_vector(_env, vec)
 }
