@@ -13,7 +13,9 @@ fn flx_rs_score(source: &str, pattern: &str) -> Option<Vec<i32>> {
     if result == None {
         return None;
     }
-    return Some(result.score)
+    let vec: Vec<i32> = result.indices.clone();
+    vec.insert(0, result.score);
+    return Some(vec)
 }
 
 // Output Functions
