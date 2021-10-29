@@ -1,4 +1,5 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![CELPA](https://celpa.conao3.com/packages/flx-rs-badge.svg)](https://celpa.conao3.com/#/flx-rs)
 
 # flx-rs
 > flx in Rust using dynamic module
