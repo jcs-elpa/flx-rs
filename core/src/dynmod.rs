@@ -37,6 +37,6 @@ fn flx_rs_score(source: &str, pattern: &str) -> Option<Vec<i32>> {
 /// (fn STR QUERY)
 #[defun]
 fn score(env: &Env, str: String, query: String) -> Result<Vector> {
-    let vec: Option<Vec<i32>> = flx_rs_score(str, query);
+    let vec: Option<Vec<i32>> = flx_rs_score(&str, &query);
     vec_to_vector(env, vec)
 }
