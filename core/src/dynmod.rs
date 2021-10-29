@@ -32,7 +32,7 @@ fn flx_rs_score(source: &str, pattern: &str) -> Option<Vec<i32>> {
 fn score(env: &Env, str: String, query: String) -> Result<Vector> {
     let _vec: Option<Vec<i32>> = flx_rs_score(&str, &query);
     if _vec == None {
-        return None;
+        return Ok(None);
     }
     let _inner_vec: Vec<i32> = _vec.unwrap();
     let vec = env.make_vector(_inner_vec.len(), ())?;
