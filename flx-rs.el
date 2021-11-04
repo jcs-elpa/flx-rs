@@ -49,13 +49,15 @@
 (declare-function flx-rs-core-score "flx-rs-core")
 
 ;;
-;; (@* "Aliases" )
+;; (@* "Utils" )
 ;;
 
 (defun flx-rs-score (str query &rest _)
   "Return best score matching QUERY against STR."
-  (when-let ((vec (ignore-errors (flx-rs-core-score str query))))
-    (append vec nil)))  ; Convert vector to list
+  (unless (or (zerop (length query))
+              (zerop (length str)))
+    (when-let ((vec (ignore-errors (flx-rs-core-score str query))))
+      (append vec nil))))  ; Convert vector to list
 
 ;;
 ;; (@* "Bootstrap" )
