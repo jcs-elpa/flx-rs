@@ -32,7 +32,6 @@
 
 ;;; Code:
 
-
 (require 'cl-lib)
 (require 'subr-x)
 
@@ -55,7 +54,7 @@
 
 (defun flx-rs-score (str query &rest _)
   "Return best score matching QUERY against STR."
-  (when-let ((vec (flx-rs-core-score str query)))
+  (when-let ((vec (ignore-errors (flx-rs-core-score str query))))
     (append vec nil)))  ; Convert vector to list
 
 ;;
