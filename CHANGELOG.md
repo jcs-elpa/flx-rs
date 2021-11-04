@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
 
+### 0.1.2 (Unreleased)
+> Released N/A
+
+* Wrap empty inputs.
+
 ### 0.1.1
 > Released Nov 4, 2021
 
