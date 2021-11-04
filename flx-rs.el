@@ -53,7 +53,10 @@
 ;; (@* "Aliases" )
 ;;
 
-(defalias 'flx-rs-score #'flx-rs-core-score)
+(defun flx-rs-score (str query)
+  "Return best score matching QUERY against STR."
+  (when-let ((vec (flx-rs-core-score str query)))
+    (append vec nil)))  ; Convert vector to list
 
 ;;
 ;; (@* "Bootstrap" )
