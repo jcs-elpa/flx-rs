@@ -21,6 +21,15 @@ Calculate the score with `PATTERN` and `SOURCE`:
 (flx-rs-score "something" "some else thing")
 ```
 
+## Replace `flx`
+
+To completely replace `flx` with this package, add the following line to your
+configuration.
+
+```el
+(advice-add 'flx-score :override #'flx-rs-score)
+```
+
 ## 🔗 Links
 
 * https://github.com/jcs090218/flx-rs
