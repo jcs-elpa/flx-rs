@@ -21,7 +21,7 @@ Calculate the score with `PATTERN` and `SOURCE`:
 (flx-rs-score "something" "some else thing")
 ```
 
-## Replace `flx`
+## 💥 Replace `flx`
 
 To completely replace `flx` with this package, add the following line to your
 configuration.
