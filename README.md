@@ -7,6 +7,9 @@
 [![CI](https://github.com/jcs-elpa/flx-rs/actions/workflows/test.yml/badge.svg)](https://github.com/jcs-elpa/flx-rs/actions/workflows/test.yml)
 [![Build](https://github.com/jcs-elpa/flx-rs/actions/workflows/build.yml/badge.svg)](https://github.com/jcs-elpa/flx-rs/actions/workflows/build.yml)
 
+The `rust` implementation is under [jcs090218/flx-rs](https://github.com/jcs090218/flx-rs)
+; hence this repo will only contain releases and ready-to-use binary files.
+
 ## 🔨 Usage
 
 Load by calling the following function,
@@ -29,10 +32,6 @@ configuration.
 ```el
 (advice-add 'flx-score :override #'flx-rs-score)
 ```
-
-## 🔗 Links
-
-* https://github.com/jcs090218/flx-rs
 
 ## Contribution
 
