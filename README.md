@@ -33,19 +33,11 @@ configuration.
 (advice-add 'flx-score :override #'flx-rs-score)
 ```
 
-<<<<<<< HEAD
-## Contribution
-=======
-## 🔗 Links
-
-* https://github.com/jcs090218/flx-rs
-
 ## Contribute
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 [![Elisp styleguide](https://img.shields.io/badge/elisp-style%20guide-purple)](https://github.com/bbatsov/emacs-lisp-style-guide)
 [![Donate on paypal](https://img.shields.io/badge/paypal-donate-1?logo=paypal&color=blue)](https://www.paypal.me/jcs090218)
->>>>>>> a08fe617d849b22b7b0f0bcfb5acb86c3c941104
 
 If you would like to contribute to this project, you may either
 clone and make pull requests to this repository. Or you can
