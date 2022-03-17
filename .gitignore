@@ -1,10 +1,17 @@
-# ignore these directories.
+# ignore these directories
 /.git
 /recipes
+/test
 
-# Elisp
+# ignore generated files
 *.elc
-.cask
+
+# cask packages
+.cask/
+dist/
+
+# eask packages
+/.eask
 
 # ignore video
 /video
