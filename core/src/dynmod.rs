@@ -45,15 +45,25 @@ fn score(env: &Env, str: String, query: String) -> Result<Option<Vector>> {
     Ok(Some(vec))
 }
 
-
+/// Create cache for flx-rs
+///
+/// Return new HashMap pointer.
 #[defun(user_ptr)]
-fn create_cache() -> Result<HashMap<&str, HashMap<Option<u32>, VecDeque<Option<u32>>>>> {
-    Ok(HashMap::new())
+fn create_cache() -> Result<Option<HashMap<&str, HashMap<Option<u32>, VecDeque<Option<u32>>>>>> {
+    Ok(Some(HashMap::new()))
 }
 
+/// Clear the CACHE.
+///
+/// Return HashMap pointer.
+///
+/// (fn CACHE)
 #[defun(user_ptr)]
-fn clear_cache(cache: HashMap<&str, HashMap<Option<u32>, VecDeque<Option<u32>>>>)
-               -> Result<HashMap<&str, HashMap<Option<u32>, VecDeque<Option<u32>>>>> {
-    cache.clear();
+fn clear_cache(cache: Option<HashMap<&str, HashMap<Option<u32>, VecDeque<Option<u32>>>>>)
+               -> Result<Option<HashMap<&str, HashMap<Option<u32>, VecDeque<Option<u32>>>>>> {
+    if cache.is_none() {
+        Ok(None)
+    }
+    cache.unwrap().clear();
     Ok(cache)
 }
