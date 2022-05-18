@@ -6,6 +6,7 @@
  * $Notice: See LICENSE.txt for modification and distribution information
  *                   Copyright © 2021 by Shen, Jen-Chieh $
  */
+use std::collections::{HashMap, VecDeque};
 use emacs::{defun, Env, Result, Value, IntoLisp, Vector};
 
 fn flx_rs_score(source: &str, pattern: &str) -> Option<Vec<i32>> {
@@ -42,4 +43,17 @@ fn score(env: &Env, str: String, query: String) -> Result<Option<Vector>> {
         index += 1;
     }
     Ok(Some(vec))
+}
+
+
+#[defun(user_ptr)]
+fn create_cache() -> Result<HashMap<&str, HashMap<Option<u32>, VecDeque<Option<u32>>>>> {
+    Ok(HashMap::new())
+}
+
+#[defun(user_ptr)]
+fn clear_cache(cache: HashMap<&str, HashMap<Option<u32>, VecDeque<Option<u32>>>>)
+               -> Result<HashMap<&str, HashMap<Option<u32>, VecDeque<Option<u32>>>>> {
+    cache.clear();
+    Ok(cache)
 }
