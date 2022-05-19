@@ -49,7 +49,7 @@ fn score(env: &Env, str: String, query: String) -> Result<Option<Vector>> {
 ///
 /// Return new HashMap pointer.
 #[defun(user_ptr)]
-fn create_cache() -> Result<Option<HashMap<String, HashMap<String, String>>>> {
+fn create_cache() -> Result<Option<HashMap<String, HashMap<Option<u32>, VecDeque<Option<u32>>>>>> {
     Ok(Some(HashMap::new()))
 }
 
@@ -59,7 +59,7 @@ fn create_cache() -> Result<Option<HashMap<String, HashMap<String, String>>>> {
 ///
 /// (fn CACHE)
 #[defun(user_ptr)]
-fn clear_cache(cache: Option<HashMap<String, HashMap<String, String>>>) -> Result<()> {
+fn clear_cache(cache: Option<HashMap<String, HashMap<Option<u32>, VecDeque<Option<u32>>>>>) -> Result<()> {
     if !cache.is_none() {
         cache.unwrap().clear();
     }
