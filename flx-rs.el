@@ -76,6 +76,5 @@
       (module-load dyn-path)
       (message "[INFO] Successfully load dynamic module, `%s`" dyn-name))))
 
-
 (provide 'flx-rs)
 ;;; flx-rs.el ends here
