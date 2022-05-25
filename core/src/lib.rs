@@ -9,9 +9,8 @@
 extern crate emacs;
 extern crate flx_rs;
 
-use emacs::{ Env, Result };
-
-pub mod dynmod;
+use std::collections::{HashMap};
+use emacs::{defun, Env, Result, Vector};
 
 // Module Defintion
 emacs::plugin_is_GPL_compatible!();
@@ -19,5 +18,52 @@ emacs::plugin_is_GPL_compatible!();
 // Empty method to satisify emacs module
 #[emacs::module(mod_in_name = false)]
 fn init(_: &Env) -> Result<()> {
+    let mut str_cache: Option<HashMap<String, flx_rs::StrInfo>> = Some(HashMap::new());
+
+    fn _internal_score(source: &str, pattern: &str, cache: Option<String>) -> Option<Vec<i32>> {
+        let result: Option<flx_rs::Score> = flx_rs::score(source, pattern, &mut str_cache);
+        if result.is_none() {
+            return None;
+        }
+        let _result: flx_rs::Score = result.unwrap();
+        let mut vec: Vec<i32> = _result.indices.clone();
+        vec.insert(0, _result.score);
+        return Some(vec)
+    }
+
+    /// Return the QUERY fuzzy score about STR, using flx fuzzy algorithm.
+    ///
+    /// Sign: (-> Str Str (Option Long))
+    ///
+    /// Return nil if no match happened.
+    ///
+    /// (fn STR QUERY)
+    #[defun]
+    fn score(env: &Env, str: String, query: String, cache: Option<String>) -> Result<Option<Vector>> {
+        let _vec: Option<Vec<i32>> = _internal_score(&str, &query, cache);
+        if _vec == None {
+            return Ok(None);
+        }
+        let _inner_vec: Vec<i32> = _vec.unwrap();
+        let mut vec = env.make_vector(_inner_vec.len(), ())?;
+        let mut index = 0;
+        for data in _inner_vec {
+            vec.set(index, data);
+            index += 1;
+        }
+        Ok(Some(vec))
+    }
+
+    /// Clear the CACHE.
+    ///
+    /// (fn CACHE)
+    #[defun]
+    fn clear_cache(cache: String) -> Result<()> {
+        if str_cache.contains_key(&cache) {
+            str_cache.remove(&cache);
+        }
+        Ok(())
+    }
+
     Ok(())
 }
