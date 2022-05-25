@@ -18,10 +18,10 @@ emacs::plugin_is_GPL_compatible!();
 // Empty method to satisify emacs module
 #[emacs::module(mod_in_name = false)]
 fn init(_: &Env) -> Result<()> {
-    let CACHE: Option<HashMap<&str, flx_rs::StrInfo>> = HashMap::new();
+    let mut str_cache: Option<HashMap<String, flx_rs::StrInfo>> = Some(HashMap::new());
 
     fn _internal_score(source: &str, pattern: &str, cache: Option<String>) -> Option<Vec<i32>> {
-        let result: Option<flx_rs::Score> = flx_rs::score(source, pattern, CACHE);
+        let result: Option<flx_rs::Score> = flx_rs::score(source, pattern, &mut str_cache);
         if result.is_none() {
             return None;
         }
@@ -59,8 +59,8 @@ fn init(_: &Env) -> Result<()> {
     /// (fn CACHE)
     #[defun]
     fn clear_cache(cache: String) -> Result<()> {
-        if CACHE.contains_key(&cache) {
-            CACHE.remove(&cache);
+        if str_cache.contains_key(&cache) {
+            str_cache.remove(&cache);
         }
         Ok(())
     }
