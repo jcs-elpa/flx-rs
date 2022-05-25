@@ -9,6 +9,7 @@
 extern crate emacs;
 extern crate flx_rs;
 
+use std::collections::{HashMap};
 use emacs::{defun, Env, Result, Vector};
 
 // Module Defintion
