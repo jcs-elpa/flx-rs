@@ -6,8 +6,11 @@
  * $Notice: See LICENSE.txt for modification and distribution information
  *                   Copyright © 2021 by Shen, Jen-Chieh $
  */
-use std::{collections::HashMap, sync::Mutex};
+use std::collections::{HashMap, VecDeque};
+use std::sync::{Mutex};
+
 use emacs::{defun, Env, Result, Value, IntoLisp, Vector};
+
 use once_cell::sync::Lazy;
 
 pub struct StrInfo {
