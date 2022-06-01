@@ -26,7 +26,7 @@ impl StrInfo {
     }
 }
 
-static CACHE: Lazy<Mutex<HashMap<String, HashMap<String, StrInfo>>>>> = Lazy::new(|| Mutex::new(HashMap::new()));
+static CACHE: Lazy<Mutex<HashMap<String, HashMap<String, StrInfo>>>> = Lazy::new(|| Mutex::new(HashMap::new()));
 
 fn flx_rs_score(source: &str, pattern: &str, cache: &mut Option<HashMap<String, StrInfo>>) -> Option<Vec<i32>> {
     let result: Option<flx_rs::Score> = flx_rs::score(source, pattern);
