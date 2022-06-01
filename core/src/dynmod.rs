@@ -9,10 +9,11 @@
 use std::collections::{HashMap, VecDeque};
 use std::sync::{Mutex};
 
-use emacs::{defun, Env, Result, Value, IntoLisp, Vector};
+use emacs::{defun, Env, Result, Vector};
 
 use once_cell::sync::Lazy;
 
+#[derive(Clone)]
 pub struct StrInfo {
     // Generated through get_hash_for_string
     hash_for_string: HashMap<Option<u32>, VecDeque<Option<u32>>>,
@@ -57,8 +58,8 @@ fn score(env: &Env, str: String, query: String, cache_id: Option<String>) -> Res
     let cache: Option<HashMap<String, StrInfo>> = None;
 
     if !cache_id.is_none() {
-        cache = HashMap::new();
-        CAHCE.try_lock().expect("Failed to access cache registry").insert(cache_id.unwrap(), cache);
+        cache = Some(HashMap::new());
+        CAHCE.try_lock().expect("Failed to access cache registry").insert(cache_id.unwrap(), cache.unwrap());
     }
 
     let _vec: Option<Vec<i32>> = flx_rs_score(&str, &query, &mut cache);
