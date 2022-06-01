@@ -9,7 +9,24 @@
 use emacs::{defun, Env, Result, Value, IntoLisp, Vector};
 use once_cell::sync::Lazy;
 
-static CACHE: Lazy<Mutex<HashMap<String, HashMap<String, flx_rs::StrInfo>>>>> = Lazy::new(|| Mutex::new(HashMap::new()));
+pub struct StrInfo {
+    // Generated through get_hash_for_string
+    hash_for_string: HashMap<Option<u32>, VecDeque<Option<u32>>>,
+
+    // Something that get_heatmap_str would return.
+    heatmap: Vec<i32>,
+}
+
+impl StrInfo {
+    fn new() -> StrInfo {
+        StrInfo {
+            hash_for_string: HashMap::new(),
+            heatmap: Vec::new(),
+        }
+    }
+}
+
+static CACHE: Lazy<Mutex<HashMap<String, HashMap<String, StrInfo>>>>> = Lazy::new(|| Mutex::new(HashMap::new()));
 
 fn flx_rs_score(source: &str, pattern: &str, cache: &mut Option<HashMap<String, StrInfo>>) -> Option<Vec<i32>> {
     let result: Option<flx_rs::Score> = flx_rs::score(source, pattern);
@@ -33,7 +50,7 @@ fn flx_rs_score(source: &str, pattern: &str, cache: &mut Option<HashMap<String, 
 /// (fn STR QUERY)
 #[defun]
 fn score(env: &Env, str: String, query: String, cache_id: String) -> Result<Option<Vector>> {
-    let cache : HashMap<String, flx_rs::StrInfo> = CAHCE.try_lock().expect("Failed to access cache registry").get(cache);
+    let cache : HashMap<String, StrInfo> = CAHCE.try_lock().expect("Failed to access cache registry").get(cache);
 
     let _vec: Option<Vec<i32>> = flx_rs_score(&str, &query, Some(cache));
     if _vec == None {
