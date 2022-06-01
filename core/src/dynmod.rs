@@ -6,6 +6,7 @@
  * $Notice: See LICENSE.txt for modification and distribution information
  *                   Copyright © 2021 by Shen, Jen-Chieh $
  */
+use std::{collections::HashMap, sync::Mutex};
 use emacs::{defun, Env, Result, Value, IntoLisp, Vector};
 use once_cell::sync::Lazy;
 
@@ -49,7 +50,7 @@ fn flx_rs_score(source: &str, pattern: &str, cache: &mut Option<HashMap<String, 
 ///
 /// (fn STR QUERY)
 #[defun]
-fn score(env: &Env, str: String, query: String, cache_id: String) -> Result<Option<Vector>> {
+fn score(env: &Env, str: String, query: String, cache_id: Option<String>) -> Result<Option<Vector>> {
     let cache : HashMap<String, StrInfo> = CAHCE.try_lock().expect("Failed to access cache registry").get(cache);
 
     let _vec: Option<Vec<i32>> = flx_rs_score(&str, &query, Some(cache));
