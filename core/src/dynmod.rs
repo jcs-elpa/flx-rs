@@ -51,9 +51,14 @@ fn flx_rs_score(source: &str, pattern: &str, cache: &mut Option<HashMap<String, 
 /// (fn STR QUERY)
 #[defun]
 fn score(env: &Env, str: String, query: String, cache_id: Option<String>) -> Result<Option<Vector>> {
-    let cache : HashMap<String, StrInfo> = CAHCE.try_lock().expect("Failed to access cache registry").get(cache);
+    let cache: Option<HashMap<String, StrInfo>> = None;
 
-    let _vec: Option<Vec<i32>> = flx_rs_score(&str, &query, Some(cache));
+    if !cache_id.is_none() {
+        cache = HashMap::new();
+        CAHCE.try_lock().expect("Failed to access cache registry").insert(cache_id.unwrap(), cache);
+    }
+
+    let _vec: Option<Vec<i32>> = flx_rs_score(&str, &query, &mut cache);
     if _vec == None {
         return Ok(None);
     }
