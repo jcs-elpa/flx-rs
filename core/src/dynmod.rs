@@ -7,8 +7,11 @@
  *                   Copyright © 2021 by Shen, Jen-Chieh $
  */
 use emacs::{defun, Env, Result, Value, IntoLisp, Vector};
+use once_cell::sync::Lazy;
 
-fn flx_rs_score(source: &str, pattern: &str) -> Option<Vec<i32>> {
+static CACHE: Lazy<Mutex<HashMap<String, HashMap<String, flx_rs::StrInfo>>>>> = Lazy::new(|| Mutex::new(HashMap::new()));
+
+fn flx_rs_score(source: &str, pattern: &str, cache: &mut Option<HashMap<String, StrInfo>>) -> Option<Vec<i32>> {
     let result: Option<flx_rs::Score> = flx_rs::score(source, pattern);
     if result.is_none() {
         return None;
@@ -29,8 +32,10 @@ fn flx_rs_score(source: &str, pattern: &str) -> Option<Vec<i32>> {
 ///
 /// (fn STR QUERY)
 #[defun]
-fn score(env: &Env, str: String, query: String) -> Result<Option<Vector>> {
-    let _vec: Option<Vec<i32>> = flx_rs_score(&str, &query);
+fn score(env: &Env, str: String, query: String, cache_id: String) -> Result<Option<Vector>> {
+    let cache : HashMap<String, flx_rs::StrInfo> = CAHCE.try_lock().expect("Failed to access cache registry").get(cache);
+
+    let _vec: Option<Vec<i32>> = flx_rs_score(&str, &query, Some(cache));
     if _vec == None {
         return Ok(None);
     }
