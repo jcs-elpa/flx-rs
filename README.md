@@ -45,6 +45,10 @@ clone and make pull requests to this repository. Or you can
 clone the project and establish your own branch of this tool.
 Any methods are welcome!
 
-You need `eask` in your `PATH` to run the [Makefile](/Makefile). See [Eask install instructions](https://emacs-eask.github.io/Getting-Started/Install-Eask/), e.g.
+You need `eask` in your `PATH` to run the [Makefile](/Makefile).
+See [Eask install instructions](https://emacs-eask.github.io/Getting-Started/Install-Eask/)
+, e.g.
 
-    $ npm install -g @emacs-eask/eask
+```
+$ npm install -g @emacs-eask/eask
+```
