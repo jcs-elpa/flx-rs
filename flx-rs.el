@@ -4,11 +4,10 @@
 ;; Created date 2021-10-28 00:53:46
 
 ;; Author: Shen, Jen-Chieh <jcs090218@gmail.com>
-;; Description: flx in Rust using dynamic module
-;; Keyword: fuzzy
+;; URL: https://github.com/jcs-elpa/flx-rs
 ;; Version: 0.1.1
 ;; Package-Requires: ((emacs "25.1"))
-;; URL: https://github.com/jcs-elpa/flx-rs
+;; Keywords: fuzzy
 
 ;; This file is NOT part of GNU Emacs.
 

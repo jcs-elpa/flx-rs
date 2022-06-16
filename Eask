@@ -2,6 +2,9 @@
          "0.1.1"
          "flx in Rust using dynamic module")
 
+(website-url "https://github.com/jcs-elpa/flx-rs")
+(keywords "fuzzy")
+
 (package-file "flx-rs.el")
 
 (source "melpa")
