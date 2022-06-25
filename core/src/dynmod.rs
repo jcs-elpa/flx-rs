@@ -6,9 +6,34 @@
  * $Notice: See LICENSE.txt for modification and distribution information
  *                   Copyright © 2021 by Shen, Jen-Chieh $
  */
-use emacs::{defun, Env, Result, Value, IntoLisp, Vector};
+use std::collections::{HashMap, VecDeque};
+use std::sync::{Mutex};
 
-fn flx_rs_score(source: &str, pattern: &str) -> Option<Vec<i32>> {
+use emacs::{defun, Env, Result, Vector};
+
+use once_cell::sync::Lazy;
+
+#[derive(Clone)]
+pub struct StrInfo {
+    // Generated through get_hash_for_string
+    hash_for_string: HashMap<Option<u32>, VecDeque<Option<u32>>>,
+
+    // Something that get_heatmap_str would return.
+    heatmap: Vec<i32>,
+}
+
+impl StrInfo {
+    fn new() -> StrInfo {
+        StrInfo {
+            hash_for_string: HashMap::new(),
+            heatmap: Vec::new(),
+        }
+    }
+}
+
+static CACHE: Lazy<Mutex<HashMap<String, HashMap<String, StrInfo>>>> = Lazy::new(|| Mutex::new(HashMap::new()));
+
+fn flx_rs_score(source: &str, pattern: &str, cache: &mut Option<HashMap<String, StrInfo>>) -> Option<Vec<i32>> {
     let result: Option<flx_rs::Score> = flx_rs::score(source, pattern);
     if result.is_none() {
         return None;
@@ -29,8 +54,15 @@ fn flx_rs_score(source: &str, pattern: &str) -> Option<Vec<i32>> {
 ///
 /// (fn STR QUERY)
 #[defun]
-fn score(env: &Env, str: String, query: String) -> Result<Option<Vector>> {
-    let _vec: Option<Vec<i32>> = flx_rs_score(&str, &query);
+fn score(env: &Env, str: String, query: String, cache_id: Option<String>) -> Result<Option<Vector>> {
+    let cache: Option<HashMap<String, StrInfo>> = None;
+
+    if !cache_id.is_none() {
+        cache = Some(HashMap::new());
+        CAHCE.try_lock().expect("Failed to access cache registry").insert(cache_id.unwrap(), cache.unwrap());
+    }
+
+    let _vec: Option<Vec<i32>> = flx_rs_score(&str, &query, &mut cache);
     if _vec == None {
         return Ok(None);
     }
