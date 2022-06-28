@@ -34,12 +34,18 @@
 (require 'cl-lib)
 (require 'subr-x)
 
-(defconst flx-rs--bin-dir
-  (concat (file-name-directory load-file-name) "bin/")
-  "Pre-built binaries directory path.")
+(defgroup flx-rs nil
+  "flx in Rust using dynamic module"
+  :prefix "flx-rs-")
 
-(defconst flx-rs--dyn-name "flx_rs_core"
-  "Dynamic module name.")
+(defcustom flx-rs-bin-dir
+  (concat (file-name-directory load-file-name) "bin/")
+  "Pre-built binaries directory path."
+  :type 'directory)
+
+(defcustom flx-rs-dyn-name "flx_rs_core"
+  "Dynamic module name."
+  :type 'string)
 
 ;;
 ;; (@* "Externals" )
@@ -68,10 +74,10 @@
   (interactive)
   (unless (featurep 'flx-rs-core)
     (let* ((dyn-name (cl-case system-type
-                       ((windows-nt ms-dos cygwin) (concat flx-rs--dyn-name ".dll"))
-                       (`darwin (concat "lib" flx-rs--dyn-name ".dylib"))
-                       (t (concat "lib" flx-rs--dyn-name ".so"))))
-           (dyn-path (concat flx-rs--bin-dir dyn-name)))
+                       ((windows-nt ms-dos cygwin) (concat flx-rs-dyn-name ".dll"))
+                       (`darwin (concat "lib" flx-rs-dyn-name ".dylib"))
+                       (t (concat "lib" flx-rs-dyn-name ".so"))))
+           (dyn-path (concat flx-rs-bin-dir dyn-name)))
       (module-load dyn-path)
       (message "[INFO] Successfully load dynamic module, `%s`" dyn-name))))
 
