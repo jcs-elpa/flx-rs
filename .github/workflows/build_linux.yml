@@ -39,7 +39,7 @@ jobs:
       - name: Build binaries
         run: |
           cd core
-          sudo apt-get install sudo apt-get install gcc-multilib g++-multili
+          sudo apt-get install gcc-multilib g++-multilib
           rustup target install ${{ matrix.target }}
           cargo build --release --target ${{ matrix.target }}
 
