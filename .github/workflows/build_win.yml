@@ -11,8 +11,9 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  DYN_NAME: flx-rs
+  DYN_NAME: flx_rs_score
   EXT: .dll
+  NEW_NAME: flx-rs
 
 jobs:
   build:
@@ -41,10 +42,10 @@ jobs:
           cargo build --release --target ${{ matrix.target }}
 
       - name: Rename dynamic module
-        run: Rename-Item -Path core/target/${{ matrix.target }}/release/${{ env.DYN_NAME }}${{ env.EXT }} -NewName ${{ env.DYN_NAME }}.${{ matrix.target }}${{ env.EXT }}
+        run: Rename-Item -Path core/target/${{ matrix.target }}/release/${{ env.DYN_NAME }}${{ env.EXT }} -NewName ${{ env.NEW_NAME }}.${{ matrix.target }}${{ env.EXT }}
 
       - name: Upload binaries
         uses: actions/upload-artifact@v1
         with:
-          name: ${{ env.DYN_NAME }}.${{ matrix.target }}
-          path: core/target/${{ matrix.target }}/release/${{ env.DYN_NAME }}.${{ matrix.target }}${{ env.EXT }}
+          name: ${{ env.NEW_NAME }}.${{ matrix.target }}
+          path: core/target/${{ matrix.target }}/release/${{ env.NEW_NAME }}.${{ matrix.target }}${{ env.EXT }}

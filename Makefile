@@ -19,7 +19,7 @@ compile:
 
 test:
 	@echo "Testing..."
-	$(EASK) test ert ./test/*.el
+	$(EASK) test ert ./test/flx-rs-*.el
 
 checkdoc:
 	@echo "Run checkdoc..."

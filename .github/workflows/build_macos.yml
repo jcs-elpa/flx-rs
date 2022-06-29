@@ -11,8 +11,9 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  DYN_NAME: libflx-rs
+  DYN_NAME: libflx_rs_core
   EXT: .dylib
+  NEW_NAME: flx-rs
 
 jobs:
   build:
@@ -43,10 +44,10 @@ jobs:
           cargo build --release --target ${{ matrix.target }}
 
       - name: Rename dynamic module
-        run: mv core/target/${{ matrix.target }}/release/${{ env.DYN_NAME }}${{ env.EXT }} core/target/${{ matrix.target }}/release/${{ env.DYN_NAME }}.${{ matrix.target }}${{ env.EXT }}
+        run: mv core/target/${{ matrix.target }}/release/${{ env.DYN_NAME }}${{ env.EXT }} core/target/${{ matrix.target }}/release/${{ env.NEW_NAME }}.${{ matrix.target }}${{ env.EXT }}
 
       - name: Upload binaries
         uses: actions/upload-artifact@v1
         with:
-          name: ${{ env.DYN_NAME }}.${{ matrix.target }}
-          path: core/target/${{ matrix.target }}/release/${{ env.DYN_NAME }}.${{ matrix.target }}${{ env.EXT }}
+          name: ${{ env.NEW_NAME }}.${{ matrix.target }}
+          path: core/target/${{ matrix.target }}/release/${{ env.NEW_NAME }}.${{ matrix.target }}${{ env.EXT }}
