@@ -49,4 +49,4 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: ${{ env.DYN_NAME }}.${{ matrix.target }}
-          path: core/target/${{ matrix.target }}/release/${{ env.DYN_NAME }}${{ env.EXT }}
+          path: core/target/${{ matrix.target }}/release/${{ matrix.target }}${{ env.EXT }}
