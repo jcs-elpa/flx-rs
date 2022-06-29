@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  DYN_NAME: flx_rs_core
+  DYN_NAME: flx_rs_core.dll
 
 jobs:
   build:
@@ -45,5 +45,5 @@ jobs:
       - name: Upload binaries
         uses: actions/upload-artifact@v1
         with:
-          name: ${{ env.DYN_NAME }}.${{ matrix.target }}.${{ matrix.ext }}
-          path: core/target/release/${{ matrix.target }}/release/${{ env.DYN_NAME }}.${{ matrix.ext }}
+          name: ${{ env.DYN_NAME }}.${{ matrix.target }}
+          path: core/target/release/${{ matrix.target }}/release/${{ env.DYN_NAME }}
