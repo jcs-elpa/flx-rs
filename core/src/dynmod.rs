@@ -14,7 +14,7 @@ fn flx_rs_score(source: &str, pattern: &str) -> Option<Vec<i32>> {
         return None;
     }
     let _result: flx_rs::Score = result.unwrap();
-    let vec: Vec<i32> = _result.indices.clone();
+    let mut vec: Vec<i32> = _result.indices.clone();
     vec.insert(0, _result.score);
     return Some(vec)
 }
@@ -35,7 +35,7 @@ fn score(env: &Env, str: String, query: String) -> Result<Option<Vector>> {
         return Ok(None);
     }
     let _inner_vec: Vec<i32> = _vec.unwrap();
-    let mut vec = env.make_vector(_inner_vec.len(), ())?;
+    let vec = env.make_vector(_inner_vec.len(), ())?;
     let mut index: usize = 0;
     _inner_vec.into_iter().for_each(|data| {
         vec.set(index, data);
