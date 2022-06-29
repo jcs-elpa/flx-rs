@@ -32,6 +32,6 @@ lint:
 clean:
 	$(EASK) clean-all
 
-activate:
+activate: package
 	$(EASK) install --dev
 	$(EASK) load ./test/activate.el
