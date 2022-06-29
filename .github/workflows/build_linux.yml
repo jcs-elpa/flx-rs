@@ -1,0 +1,51 @@
+name: Build Linux
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DYN_NAME: flx_rs_core.so
+
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - x86_64-unknown-linux-gnu
+          - aarch64-unknown-linux-gnu
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup | Rust
+        uses: ATiltedTree/setup-rust@v1
+        with:
+          rust-version: stable
+
+      - name: Install LLVM and Clang
+        uses: KyleMayes/install-llvm-action@v1
+        with:
+          version: "10.0"
+
+      - name: Build binaries
+        run: |
+          cd core
+          rustup target install ${{ matrix.target }}
+          cargo build --release --target ${{ matrix.target }}
+
+      - name: check
+        run: tree
+
+      - name: Upload binaries
+        uses: actions/upload-artifact@v1
+        with:
+          name: ${{ env.DYN_NAME }}.${{ matrix.target }}
+          path: core/target/release/${{ matrix.target }}/release/${{ env.DYN_NAME }}
