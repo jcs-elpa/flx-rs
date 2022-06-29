@@ -6,6 +6,8 @@
 > flx in Rust using dynamic module
 
 [![CI](https://github.com/jcs-elpa/flx-rs/actions/workflows/test.yml/badge.svg)](https://github.com/jcs-elpa/flx-rs/actions/workflows/test.yml)
+[![Activate](https://github.com/jcs-elpa/flx-rs/actions/workflows/activate.yml/badge.svg)](https://github.com/jcs-elpa/flx-rs/actions/workflows/activate.yml)
+
 [![Build Windows](https://github.com/jcs-elpa/flx-rs/actions/workflows/build_win.yml/badge.svg)](https://github.com/jcs-elpa/flx-rs/actions/workflows/build_win.yml)
 [![Build macOS](https://github.com/jcs-elpa/flx-rs/actions/workflows/build_macos.yml/badge.svg)](https://github.com/jcs-elpa/flx-rs/actions/workflows/build_macos.yml)
 [![Build Linux](https://github.com/jcs-elpa/flx-rs/actions/workflows/build_linux.yml/badge.svg)](https://github.com/jcs-elpa/flx-rs/actions/workflows/build_linux.yml)
