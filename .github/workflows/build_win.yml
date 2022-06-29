@@ -38,7 +38,7 @@ jobs:
           cd core
           rustup target install ${{ matrix.target }}
           cargo build --release --target ${{ matrix.target }}
-
+          
       - name: check
         run: tree /F
 
@@ -46,4 +46,4 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: ${{ env.DYN_NAME }}.${{ matrix.target }}.${{ matrix.ext }}
-          path: core/target/release/${{ matrix.target }}/${{ env.DYN_NAME }}.${{ matrix.ext }}
+          path: core/target/release/${{ matrix.target }}/release/${{ env.DYN_NAME }}.${{ matrix.ext }}
