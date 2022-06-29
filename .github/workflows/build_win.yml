@@ -30,7 +30,7 @@ jobs:
         with:
           rust-version: stable
 
-      - name: Install LLVM and Clang (Windows)
+      - name: Install LLVM and Clang
         run: .github/script/setup-llvm
 
       - name: Build binaries
@@ -38,10 +38,10 @@ jobs:
           cd core
           rustup target install ${{ matrix.target }}
           cargo build --release --target ${{ matrix.target }}
-          
+
       - name: check
-        run: tree target
-          
+        run: tree
+
       - name: Upload binaries
         uses: actions/upload-artifact@v1
         with:
