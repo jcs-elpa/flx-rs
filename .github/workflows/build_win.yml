@@ -45,5 +45,5 @@ jobs:
       - name: Upload binaries
         uses: actions/upload-artifact@v1
         with:
-          name: ${{ env.DYN_NAME }}.${{ matrix.ext }}
-          path: core/target/release/${{ env.DYN_NAME }}.${{ matrix.ext }}
+          name: ${{ env.DYN_NAME }}.${{ matrix.target }}.${{ matrix.ext }}
+          path: core/target/release/${{ matrix.target }}/${{ env.DYN_NAME }}.${{ matrix.ext }}

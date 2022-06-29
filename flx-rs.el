@@ -78,14 +78,15 @@
 
 (defun flx-rs--system-specific-file ()
   "Return the dynamic module filename, which is system-dependent."
-  (let ((x86 (string-prefix-p "x86_64" system-configuration)))
+  (let* ((x86 (string-prefix-p "x86_64" system-configuration))
+         (name (if x86 "x86_64" "aarch64")))
     (pcase system-type
       ('windows-nt
-       (concat flx-rs-dyn-name (if x86 "x86_64" "aarch64") "-pc-windows-msvc.dll"))
+       (concat flx-rs-dyn-name "." name "-pc-windows-msvc.dll"))
       ('darwin
-       (concat flx-rs-dyn-name (if x86 "x86_64" "aarch64") "-apple-darwin.dylib"))
+       (concat flx-rs-dyn-name "." name "-apple-darwin.dylib"))
       ((or 'gnu 'gnu/linux 'gnu/kfreebsd)
-       (concat flx-rs-dyn-name (if x86 "x86_64" "aarch64") "-unknown-linux-gnu.so")))))
+       (concat flx-rs-dyn-name "." name "-unknown-linux-gnu.so")))))
 
 ;;;###autoload
 (defun flx-rs-load-dyn ()
