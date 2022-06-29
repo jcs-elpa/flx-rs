@@ -1,4 +1,4 @@
-name: Build
+name: Build Windows
 
 on:
   push:
@@ -15,16 +15,12 @@ env:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    runs-on: windows-latest
     strategy:
       matrix:
-        include:
-          - os: ubuntu-latest
-            ext: so
-          - os: macos-latest
-            ext: dylib
-          - os: windows-latest
-            ext: dll
+        target:
+          - x86_64-pc-windows-msvc
+          - aarch64-pc-windows-msvc
     steps:
       - uses: actions/checkout@v2
 
@@ -33,30 +29,18 @@ jobs:
         with:
           rust-version: stable
 
-      - name: Install LLVM and Clang (Unix)
-        if: runner.os != 'Windows'
-        uses: KyleMayes/install-llvm-action@v1
-        with:
-          version: "10.0"
-
       - name: Install LLVM and Clang (Windows)
-        if: runner.os == 'Windows'
         run: .github/script/setup-llvm
 
       - name: Build binaries
         run: |
           cd core
-          cargo build --release
-
+          cargo build --release --target ${{ matrix.target }}
+          
+      - name: check
+        run: tree target
+          
       - name: Upload binaries
-        if: runner.os != 'Windows'
-        uses: actions/upload-artifact@v1
-        with:
-          name: ${{ env.DYN_NAME }}.${{ matrix.ext }}
-          path: core/target/release/lib${{ env.DYN_NAME }}.${{ matrix.ext }}
-
-      - name: Upload binaries
-        if: runner.os == 'Windows'
         uses: actions/upload-artifact@v1
         with:
           name: ${{ env.DYN_NAME }}.${{ matrix.ext }}
