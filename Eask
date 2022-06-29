@@ -7,6 +7,8 @@
 
 (package-file "flx-rs.el")
 
+(files "bin/**")
+
 (source "melpa")
 
 (depends-on "emacs" "25.1")

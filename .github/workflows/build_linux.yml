@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  DYN_NAME: libflx_rs_core
+  DYN_NAME: libflx-rs
   EXT: .so
 
 jobs:

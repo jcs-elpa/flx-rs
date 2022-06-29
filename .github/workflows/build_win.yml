@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  DYN_NAME: flx_rs_core
+  DYN_NAME: flx-rs
   EXT: .dll
 
 jobs:

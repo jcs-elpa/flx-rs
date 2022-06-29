@@ -45,7 +45,7 @@
   :type 'directory
   :group 'flx-rs)
 
-(defcustom flx-rs-dyn-name "flx_rs_core"
+(defcustom flx-rs-dyn-name "flx-rs"
   "Dynamic module name."
   :type 'string
   :group 'flx-rs)
