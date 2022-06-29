@@ -6,7 +6,7 @@
  * $Notice: See LICENSE.txt for modification and distribution information
  *                   Copyright © 2021 by Shen, Jen-Chieh $
  */
-use emacs::{defun, Env, Result, Value, IntoLisp, Vector};
+use emacs::{defun, Env, Result, Vector};
 
 fn flx_rs_score(source: &str, pattern: &str) -> Option<Vec<i32>> {
     let result: Option<flx_rs::Score> = flx_rs::score(source, pattern);
@@ -35,11 +35,11 @@ fn score(env: &Env, str: String, query: String) -> Result<Option<Vector>> {
         return Ok(None);
     }
     let _inner_vec: Vec<i32> = _vec.unwrap();
-    let mut vec = env.make_vector(_inner_vec.len(), ())?;
-    let mut index = 0;
-    for data in _inner_vec {
+    let vec = env.make_vector(_inner_vec.len(), ())?;
+    let mut index: usize = 0;
+    _inner_vec.into_iter().for_each(|data| {
         vec.set(index, data);
         index += 1;
-    }
+    });
     Ok(Some(vec))
 }

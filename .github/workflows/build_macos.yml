@@ -1,0 +1,53 @@
+name: Build macOS
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DYN_NAME: libflx_rs_core
+  EXT: .dylib
+  NEW_NAME: flx-rs
+
+jobs:
+  build:
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - x86_64-apple-darwin
+          - aarch64-apple-darwin
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup | Rust
+        uses: ATiltedTree/setup-rust@v1
+        with:
+          rust-version: stable
+
+      - name: Install LLVM and Clang
+        uses: KyleMayes/install-llvm-action@v1
+        with:
+          version: "10.0"
+
+      - name: Build binaries
+        run: |
+          cd core
+          rustup target install ${{ matrix.target }}
+          cargo build --release --target ${{ matrix.target }}
+
+      - name: Rename dynamic module
+        run: mv core/target/${{ matrix.target }}/release/${{ env.DYN_NAME }}${{ env.EXT }} core/target/${{ matrix.target }}/release/${{ env.NEW_NAME }}.${{ matrix.target }}${{ env.EXT }}
+
+      - name: Upload binaries
+        uses: actions/upload-artifact@v1
+        with:
+          name: ${{ env.NEW_NAME }}.${{ matrix.target }}
+          path: core/target/${{ matrix.target }}/release/${{ env.NEW_NAME }}.${{ matrix.target }}${{ env.EXT }}

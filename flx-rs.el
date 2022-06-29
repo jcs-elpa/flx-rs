@@ -7,7 +7,7 @@
 ;; URL: https://github.com/jcs-elpa/flx-rs
 ;; Version: 0.1.1
 ;; Package-Requires: ((emacs "25.1"))
-;; Keywords: fuzzy
+;; Keywords: matching fuzzy
 
 ;; This file is NOT part of GNU Emacs.
 
@@ -31,15 +31,24 @@
 
 ;;; Code:
 
-(require 'cl-lib)
+(require 'pcase)
 (require 'subr-x)
 
-(defconst flx-rs--bin-dir
-  (concat (file-name-directory load-file-name) "bin/")
-  "Pre-built binaries directory path.")
+(defgroup flx-rs nil
+  "flx in Rust using dynamic module."
+  :prefix "flx-rs-"
+  :group 'flx)
 
-(defconst flx-rs--dyn-name "flx_rs_core"
-  "Dynamic module name.")
+(defcustom flx-rs-bin-dir
+  (concat (file-name-directory load-file-name) "bin/")
+  "Pre-built binaries directory path."
+  :type 'directory
+  :group 'flx-rs)
+
+(defcustom flx-rs-dyn-name "flx-rs"
+  "Dynamic module name."
+  :type 'string
+  :group 'flx-rs)
 
 ;;
 ;; (@* "Externals" )
@@ -62,16 +71,25 @@
 ;; (@* "Bootstrap" )
 ;;
 
+(defun flx-rs--system-specific-file ()
+  "Return the dynamic module filename, which is system-dependent."
+  (let* ((x86 (string-prefix-p "x86_64" system-configuration))
+         (name (if x86 "x86_64" "aarch64")))
+    (pcase system-type
+      ('windows-nt
+       (concat flx-rs-dyn-name "." name "-pc-windows-msvc.dll"))
+      ('darwin
+       (concat flx-rs-dyn-name "." name "-apple-darwin.dylib"))
+      ((or 'gnu 'gnu/linux 'gnu/kfreebsd)
+       (concat flx-rs-dyn-name "." name "-unknown-linux-gnu.so")))))
+
 ;;;###autoload
 (defun flx-rs-load-dyn ()
   "Load dynamic module."
   (interactive)
   (unless (featurep 'flx-rs-core)
-    (let* ((dyn-name (cl-case system-type
-                       ((windows-nt ms-dos cygwin) (concat flx-rs--dyn-name ".dll"))
-                       (`darwin (concat "lib" flx-rs--dyn-name ".dylib"))
-                       (t (concat "lib" flx-rs--dyn-name ".so"))))
-           (dyn-path (concat flx-rs--bin-dir dyn-name)))
+    (let* ((dyn-name (flx-rs--system-specific-file))
+           (dyn-path (concat flx-rs-bin-dir dyn-name)))
       (module-load dyn-path)
       (message "[INFO] Successfully load dynamic module, `%s`" dyn-name))))
 
