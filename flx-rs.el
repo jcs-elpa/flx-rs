@@ -35,17 +35,20 @@
 (require 'subr-x)
 
 (defgroup flx-rs nil
-  "flx in Rust using dynamic module"
-  :prefix "flx-rs-")
+  "flx in Rust using dynamic module."
+  :prefix "flx-rs-"
+  :group 'flx)
 
 (defcustom flx-rs-bin-dir
   (concat (file-name-directory load-file-name) "bin/")
   "Pre-built binaries directory path."
-  :type 'directory)
+  :type 'directory
+  :group 'flx-rs)
 
 (defcustom flx-rs-dyn-name "flx_rs_core"
   "Dynamic module name."
-  :type 'string)
+  :type 'string
+  :group 'flx-rs)
 
 ;;
 ;; (@* "Externals" )
