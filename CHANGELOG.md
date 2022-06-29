@@ -9,6 +9,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 > Released N/A
 
 * Wrap empty inputs.
+* Support system specific module (#11)
+* Add activation test (#12)
 
 ### 0.1.1
 > Released Nov 4, 2021
