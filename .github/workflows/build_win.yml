@@ -35,6 +35,7 @@ jobs:
       - name: Build binaries
         run: |
           cd core
+          rustup target install ${{ matrix.target }}
           cargo build --release --target ${{ matrix.target }}
           
       - name: check
