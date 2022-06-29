@@ -31,21 +31,24 @@
 
 ;;; Code:
 
-(require 'cl-lib)
+(require 'pcase)
 (require 'subr-x)
 
 (defgroup flx-rs nil
-  "flx in Rust using dynamic module"
-  :prefix "flx-rs-")
+  "flx in Rust using dynamic module."
+  :prefix "flx-rs-"
+  :group 'flx)
 
 (defcustom flx-rs-bin-dir
   (concat (file-name-directory load-file-name) "bin/")
   "Pre-built binaries directory path."
-  :type 'directory)
+  :type 'directory
+  :group 'flx-rs)
 
 (defcustom flx-rs-dyn-name "flx_rs_core"
   "Dynamic module name."
-  :type 'string)
+  :type 'string
+  :group 'flx-rs)
 
 ;;
 ;; (@* "Externals" )
@@ -68,15 +71,24 @@
 ;; (@* "Bootstrap" )
 ;;
 
+(defun flx-rs--system-specific-file ()
+  "Return the dynamic module filename, which is system-dependent."
+  (let* ((x86 (string-prefix-p "x86_64" system-configuration))
+         (name (if x86 "x86_64" "aarch64")))
+    (pcase system-type
+      ('windows-nt
+       (concat flx-rs-dyn-name "." name "-pc-windows-msvc.dll"))
+      ('darwin
+       (concat flx-rs-dyn-name "." name "-apple-darwin.dylib"))
+      ((or 'gnu 'gnu/linux 'gnu/kfreebsd)
+       (concat flx-rs-dyn-name "." name "-unknown-linux-gnu.so")))))
+
 ;;;###autoload
 (defun flx-rs-load-dyn ()
   "Load dynamic module."
   (interactive)
   (unless (featurep 'flx-rs-core)
-    (let* ((dyn-name (cl-case system-type
-                       ((windows-nt ms-dos cygwin) (concat flx-rs-dyn-name ".dll"))
-                       (`darwin (concat "lib" flx-rs-dyn-name ".dylib"))
-                       (t (concat "lib" flx-rs-dyn-name ".so"))))
+    (let* ((dyn-name (flx-rs--system-specific-file))
            (dyn-path (concat flx-rs-bin-dir dyn-name)))
       (module-load dyn-path)
       (message "[INFO] Successfully load dynamic module, `%s`" dyn-name))))

@@ -1,0 +1,50 @@
+name: Build Windows
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DYN_NAME: flx_rs_core
+  EXT: .dll
+
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - x86_64-pc-windows-msvc
+          - aarch64-pc-windows-msvc
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup | Rust
+        uses: ATiltedTree/setup-rust@v1
+        with:
+          rust-version: stable
+
+      - name: Install LLVM and Clang
+        run: .github/script/setup-llvm
+
+      - name: Build binaries
+        run: |
+          cd core
+          rustup target install ${{ matrix.target }}
+          cargo build --release --target ${{ matrix.target }}
+
+      - name: Rename dynamic module
+        run: Rename-Item -Path core/target/${{ matrix.target }}/release/${{ env.DYN_NAME }}${{ env.EXT }} -NewName ${{ env.DYN_NAME }}.${{ matrix.target }}${{ env.EXT }}
+
+      - name: Upload binaries
+        uses: actions/upload-artifact@v1
+        with:
+          name: ${{ env.DYN_NAME }}.${{ matrix.target }}
+          path: core/target/${{ matrix.target }}/release/${{ env.DYN_NAME }}.${{ matrix.target }}${{ env.EXT }}

@@ -6,7 +6,9 @@
 > flx in Rust using dynamic module
 
 [![CI](https://github.com/jcs-elpa/flx-rs/actions/workflows/test.yml/badge.svg)](https://github.com/jcs-elpa/flx-rs/actions/workflows/test.yml)
-[![Build](https://github.com/jcs-elpa/flx-rs/actions/workflows/build.yml/badge.svg)](https://github.com/jcs-elpa/flx-rs/actions/workflows/build.yml)
+[![Build Windows](https://github.com/jcs-elpa/flx-rs/actions/workflows/build_win.yml/badge.svg)](https://github.com/jcs-elpa/flx-rs/actions/workflows/build_win.yml)
+[![Build macOS](https://github.com/jcs-elpa/flx-rs/actions/workflows/build_macos.yml/badge.svg)](https://github.com/jcs-elpa/flx-rs/actions/workflows/build_macos.yml)
+[![Build Linux](https://github.com/jcs-elpa/flx-rs/actions/workflows/build_linux.yml/badge.svg)](https://github.com/jcs-elpa/flx-rs/actions/workflows/build_linux.yml)
 
 The `rust` implementation is under [jcs090218/flx-rs](https://github.com/jcs090218/flx-rs)
 ; hence this repo will only contain releases to ELPA and ready-to-use binary files.
