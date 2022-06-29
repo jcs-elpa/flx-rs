@@ -69,13 +69,6 @@
 ;; (@* "Bootstrap" )
 ;;
 
-(defun flx-rs--file ()
-  "Return the dynamic module filename."
-  (cl-case system-type
-    ((windows-nt ms-dos cygwin) (concat flx-rs-dyn-name ".dll"))
-    (`darwin (concat "lib" flx-rs-dyn-name ".dylib"))
-    (t (concat "lib" flx-rs-dyn-name ".so"))))
-
 (defun flx-rs--system-specific-file ()
   "Return the dynamic module filename, which is system-dependent."
   (let* ((x86 (string-prefix-p "x86_64" system-configuration))
@@ -93,7 +86,7 @@
   "Load dynamic module."
   (interactive)
   (unless (featurep 'flx-rs-core)
-    (let* ((dyn-name (flx-rs--file))
+    (let* ((dyn-name (flx-rs--system-specific-file))
            (dyn-path (concat flx-rs-bin-dir dyn-name)))
       (module-load dyn-path)
       (message "[INFO] Successfully load dynamic module, `%s`" dyn-name))))

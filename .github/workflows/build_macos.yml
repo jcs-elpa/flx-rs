@@ -11,7 +11,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  DYN_NAME: libflx_rs_core.dylib
+  DYN_NAME: libflx_rs_core
+  EXT: .dylib
 
 jobs:
   build:
@@ -41,8 +42,11 @@ jobs:
           rustup target install ${{ matrix.target }}
           cargo build --release --target ${{ matrix.target }}
 
+      - name: Rename dynamic module
+        run: mv core/target/${{ matrix.target }}/release/${{ env.DYN_NAME }}${{ env.EXT }} core/target/${{ matrix.target }}/release/${{ matrix.target }}${{ env.EXT }}
+
       - name: Upload binaries
         uses: actions/upload-artifact@v1
         with:
           name: ${{ env.DYN_NAME }}.${{ matrix.target }}
-          path: core/target/${{ matrix.target }}/release/${{ env.DYN_NAME }}
+          path: core/target/${{ matrix.target }}/release/${{ env.DYN_NAME }}${{ env.EXT }}
