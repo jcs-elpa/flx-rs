@@ -40,7 +40,7 @@ jobs:
           cargo build --release --target ${{ matrix.target }}
 
       - name: check
-        run: tree
+        run: tree /F
 
       - name: Upload binaries
         uses: actions/upload-artifact@v1
