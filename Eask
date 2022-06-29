@@ -7,7 +7,7 @@
 
 (package-file "flx-rs.el")
 
-(files "./bin")
+(files "bin")
 
 (source "melpa")
 
