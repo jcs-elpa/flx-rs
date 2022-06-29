@@ -1,4 +1,4 @@
-name: Build Linux
+name: Build macOS
 
 on:
   push:
@@ -11,17 +11,17 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  DYN_NAME: flx_rs_core.so
+  DYN_NAME: flx_rs_core.dylib
 
 jobs:
   build:
-    runs-on: linux-latest
+    runs-on: macos-latest
     strategy:
       fail-fast: false
       matrix:
         target:
-          - x86_64-unknown-linux-gnu
-          - aarch64-unknown-linux-gnu
+          - x86_64-apple-darwin
+          - aarch64-apple-darwin
     steps:
       - uses: actions/checkout@v2
 

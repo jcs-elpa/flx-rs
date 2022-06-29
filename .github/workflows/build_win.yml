@@ -38,9 +38,6 @@ jobs:
           cd core
           rustup target install ${{ matrix.target }}
           cargo build --release --target ${{ matrix.target }}
-          
-      - name: check
-        run: tree /F
 
       - name: Upload binaries
         uses: actions/upload-artifact@v1
