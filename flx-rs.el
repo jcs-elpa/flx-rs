@@ -7,7 +7,7 @@
 ;; URL: https://github.com/jcs-elpa/flx-rs
 ;; Version: 0.1.1
 ;; Package-Requires: ((emacs "25.1"))
-;; Keywords: fuzzy
+;; Keywords: matching fuzzy
 
 ;; This file is NOT part of GNU Emacs.
 
@@ -45,7 +45,7 @@
   :type 'directory
   :group 'flx-rs)
 
-(defcustom flx-rs-dyn-name "flx_rs_core"
+(defcustom flx-rs-dyn-name "flx-rs"
   "Dynamic module name."
   :type 'string
   :group 'flx-rs)

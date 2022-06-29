@@ -19,7 +19,7 @@ compile:
 
 test:
 	@echo "Testing..."
-	$(EASK) test ert ./test/*.el
+	$(EASK) test ert ./test/flx-rs-*.el
 
 checkdoc:
 	@echo "Run checkdoc..."
@@ -31,3 +31,7 @@ lint:
 
 clean:
 	$(EASK) clean-all
+
+activate: package
+	$(EASK) install --dev
+	$(EASK) load ./test/activate.el
