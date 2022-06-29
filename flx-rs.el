@@ -7,7 +7,7 @@
 ;; URL: https://github.com/jcs-elpa/flx-rs
 ;; Version: 0.1.1
 ;; Package-Requires: ((emacs "25.1"))
-;; Keywords: fuzzy
+;; Keywords: matching fuzzy
 
 ;; This file is NOT part of GNU Emacs.
 

@@ -3,7 +3,7 @@
          "flx in Rust using dynamic module")
 
 (website-url "https://github.com/jcs-elpa/flx-rs")
-(keywords "fuzzy")
+(keywords "matching" "fuzzy")
 
 (package-file "flx-rs.el")
 
