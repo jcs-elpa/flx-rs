@@ -6,8 +6,9 @@
 (keywords "matching" "fuzzy")
 
 (package-file "flx-rs.el")
-
 (files "bin")
+
+(script "test" "echo \"Error: no test specified\" && exit 1")
 
 (source "melpa")
 
