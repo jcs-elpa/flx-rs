@@ -1,6 +1,6 @@
 ;;; flx-rs.el --- flx in Rust using dynamic module  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2021  Shen, Jen-Chieh
+;; Copyright (C) 2021-2023  Shen, Jen-Chieh
 ;; Created date 2021-10-28 00:53:46
 
 ;; Author: Shen, Jen-Chieh <jcs090218@gmail.com>
