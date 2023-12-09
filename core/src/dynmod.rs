@@ -38,7 +38,7 @@ fn score(env: &Env, str: String, query: String) -> Result<Option<Vector>> {
     let vec = env.make_vector(_inner_vec.len(), ())?;
     let mut index: usize = 0;
     _inner_vec.into_iter().for_each(|data| {
-        vec.set(index, data);
+        let _ = vec.set(index, data);
         index += 1;
     });
     Ok(Some(vec))
