@@ -43,6 +43,7 @@ jobs:
           cd core
           sudo apt-get update
           sudo apt-get install gcc-multilib
+          sudo apt-get install gcc-aarch64-linux-gnu
           rustup target install ${{ matrix.target }}
           cargo build --release --target ${{ matrix.target }}
 
