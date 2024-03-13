@@ -5,7 +5,7 @@
 
 ;; Author: Shen, Jen-Chieh <jcs090218@gmail.com>
 ;; URL: https://github.com/jcs-elpa/flx-rs
-;; Version: 0.1.1
+;; Version: 0.1.6
 ;; Package-Requires: ((emacs "25.1"))
 ;; Keywords: matching fuzzy
 
