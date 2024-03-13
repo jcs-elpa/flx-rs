@@ -9,14 +9,14 @@
 use emacs::{defun, Env, Result, Vector};
 
 fn flx_rs_score(source: &str, pattern: &str) -> Option<Vec<i32>> {
-    let result: Option<flx_rs::Score> = flx_rs::score(source, pattern);
+    let result: Option<flx_rs::Result> = flx_rs::score(source, pattern);
     if result.is_none() {
         return None;
     }
-    let _result: flx_rs::Score = result.unwrap();
+    let _result: flx_rs::Result = result.unwrap();
     let mut vec: Vec<i32> = _result.indices.clone();
     vec.insert(0, _result.score);
-    return Some(vec)
+    return Some(vec);
 }
 
 // Output Functions

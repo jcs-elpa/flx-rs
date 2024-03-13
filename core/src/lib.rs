@@ -9,7 +9,7 @@
 extern crate emacs;
 extern crate flx_rs;
 
-use emacs::{ Env, Result };
+use emacs::{Env, Result};
 
 pub mod dynmod;
 
