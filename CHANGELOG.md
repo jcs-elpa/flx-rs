@@ -11,6 +11,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 * Wrap empty inputs.
 * Support system specific module (#11)
 * Add activation test (#12)
+* chore: Bump Rust `flx-rs` verison (#21)
 
 ### 0.1.1
 > Released Nov 4, 2021
