@@ -5,8 +5,13 @@ All notable changes to this project will be documented in this file.
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
 
-### 0.2.0 (Unreleased)
+### 0.1.3 (Unreleased)
 > Released N/A
+
+* N/A
+
+### 0.1.2
+> Released Mar 12, 2024
 
 * Wrap empty inputs.
 * Support system specific module (#11)
