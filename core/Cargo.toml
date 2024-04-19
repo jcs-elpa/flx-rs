@@ -12,7 +12,7 @@ crate-type = ["cdylib"]
 
 [dependencies]
 emacs = "0.17"
-flx-rs = "0.1.6"
+flx-rs = "0.2.0"
 
 [profile.release]
 opt-level = 3
