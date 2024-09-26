@@ -11,7 +11,7 @@
 [![Build macOS](https://github.com/jcs-elpa/flx-rs/actions/workflows/build_macos.yml/badge.svg)](https://github.com/jcs-elpa/flx-rs/actions/workflows/build_macos.yml)
 [![Build Linux](https://github.com/jcs-elpa/flx-rs/actions/workflows/build_linux.yml/badge.svg)](https://github.com/jcs-elpa/flx-rs/actions/workflows/build_linux.yml)
 
-The `rust` implementation is under [jcs090218/flx-rs](https://github.com/jcs090218/flx-rs)
+The `rust` implementation is under [the-flx/flx-rs](https://github.com/the-flx/flx-rs)
 ; hence this repo will only contain releases to ELPA and ready-to-use binary files.
 
 ## 🔨 Usage
