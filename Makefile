@@ -33,5 +33,5 @@ clean:
 	$(EASK) clean all
 
 activate: package
-	$(EASK) install-deps --dev
+	$(EASK) install
 	$(EASK) load ./test/activate.el
