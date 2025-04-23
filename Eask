@@ -1,3 +1,5 @@
+;; -*- mode: eask; lexical-binding: t -*-
+
 (package "flx-rs"
          "0.1.1"
          "flx in Rust using dynamic module")
