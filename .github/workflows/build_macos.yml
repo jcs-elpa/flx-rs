@@ -46,7 +46,7 @@ jobs:
         run: mv core/target/${{ matrix.target }}/release/${{ env.DYN_NAME }}${{ env.EXT }} core/target/${{ matrix.target }}/release/${{ env.NEW_NAME }}.${{ matrix.target }}${{ env.EXT }}
 
       - name: Upload binaries
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ env.NEW_NAME }}.${{ matrix.target }}
           path: core/target/${{ matrix.target }}/release/${{ env.NEW_NAME }}.${{ matrix.target }}${{ env.EXT }}
