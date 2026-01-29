@@ -64,7 +64,7 @@
   "Return best score matching QUERY against STR."
   (unless (or (zerop (length query))
               (zerop (length str)))
-    (when-let ((vec (ignore-errors (flx-rs-core-score str query))))
+    (when-let* ((vec (ignore-errors (flx-rs-core-score str query))))
       (append vec nil))))  ; Convert vector to list
 
 ;;
