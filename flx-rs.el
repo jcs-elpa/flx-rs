@@ -26,7 +26,7 @@
 
 ;;; Commentary:
 ;;
-;; flx in Rust using dynamic module
+;; flx in Rust using dynamic module.
 ;;
 
 ;;; Code:
